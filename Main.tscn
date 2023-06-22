@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://tileset/Grass_brick.tres" type="MeshLibrary" id=1]
 [ext_resource path="res://Auto_GridMap.gd" type="Script" id=2]
 [ext_resource path="res://tileset/point_meshlib.tres" type="MeshLibrary" id=3]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=4]
 
 [node name="Node" type="Node"]
 
@@ -29,3 +30,9 @@ data = {
 __meta__ = {
 "_editor_clip_": 0
 }
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 8, 10 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, -0.0516957, 2, 1.64673 )

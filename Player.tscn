@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://Weapons/Bullet.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 0.5, 1, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 0.384314, 0.117647, 0.117647, 1 )
+
+[sub_resource type="CubeMesh" id=3]
+size = Vector3( 0.5, 0.25, 0.1 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="CubeMesh" id=6]
+size = Vector3( 0.1, 0.1, 0.5 )
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.25, 0.45, 0.25 )
+
+[node name="Player" type="KinematicBody"]
+collision_mask = 6
+script = ExtResource( 2 )
+Bullet = ExtResource( 3 )
+
+[node name="Pivot" type="Spatial" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="Pivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.025 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 5 )
+
+[node name="Eyes" type="MeshInstance" parent="Pivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.275 )
+mesh = SubResource( 3 )
+material/0 = SubResource( 4 )
+
+[node name="Shoot" type="Position3D" parent="Pivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.85 )
+
+[node name="RunningParticles" type="CPUParticles" parent="Pivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.85 )
+emitting = false
+amount = 4
+lifetime = 0.1
+mesh = SubResource( 6 )
+emission_shape = 2
+emission_box_extents = Vector3( 0.1, 0.5, 0.5 )
+gravity = Vector3( 0, 0, 50 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.025 )
+shape = SubResource( 1 )
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
