@@ -1,30 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Models/wizard.gltf" type="PackedScene" id=1]
 [ext_resource path="res://Player.gd" type="Script" id=2]
-[ext_resource path="res://CamPivot.gd" type="Script" id=3]
-
-[sub_resource type="CubeMesh" id=5]
-size = Vector3( 3.6, 2.1, 0.01 )
-
-[sub_resource type="Shader" id=4]
-code = "shader_type spatial;
-render_mode unshaded;
-
-const int pixel_size = 4; //resolution must be divisible by pixel_size
-
-void fragment() {
-	float x = float(int(FRAGCOORD.x) % pixel_size);
-	float y = float(int(FRAGCOORD.y) % pixel_size);
-
-	x = FRAGCOORD.x + floor(float(pixel_size) / 2.0) - x;
-	y = FRAGCOORD.y + floor(float(pixel_size) / 2.0) - y;
-
-	ALBEDO = texture(SCREEN_TEXTURE, vec2(x, y) / VIEWPORT_SIZE).xyz;
-}"
-
-[sub_resource type="ShaderMaterial" id=6]
-shader = SubResource( 4 )
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.275, 0.475, 0.23 )
@@ -37,18 +14,6 @@ script = ExtResource( 2 )
 [node name="wizard" parent="Pivot" instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 0, 0 )
 
-[node name="CamPivot" type="Spatial" parent="Pivot"]
-script = ExtResource( 3 )
-
-[node name="Camera" type="Camera" parent="Pivot/CamPivot"]
-transform = Transform( 1, 0, 0, 0, 0.906308, 0.422618, 0, -0.422618, 0.906308, 0, 1.5, 2 )
-
-[node name="MeshInstance" type="MeshInstance" parent="Pivot/CamPivot/Camera"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5 )
-visible = false
-mesh = SubResource( 5 )
-material/0 = SubResource( 6 )
-
 [node name="CollisionShape" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.485, 0.045 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.48, 0.045 )
 shape = SubResource( 1 )
