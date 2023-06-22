@@ -1,5 +1,7 @@
 extends Area
 
+signal exploded
+
 export var muzzle_velocity = 25
 export var g = Vector3.DOWN * 20
 
@@ -12,4 +14,5 @@ func _physics_process(delta):
 
 
 func _on_Bullet_body_entered(_body):
-	print("exploded")
+	emit_signal("exploded", transform.origin)
+	queue_free()

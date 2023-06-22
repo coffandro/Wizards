@@ -23,11 +23,13 @@ func _physics_process(delta):
 		direction.z -= 1
 	
 	if Input.is_action_pressed("sprint"):
-		SpeedBoost = 1.5
+		SpeedBoost = 2
+		$Pivot/RunningParticles.set_emitting(true)
 	else:
 		SpeedBoost = 1
+		$Pivot/RunningParticles.set_emitting(false)
 	
-	if Input.is_action_just_pressed("attack") and $CooldownTimer.is_stopped():
+	if Input.is_action_just_pressed("attack") and $CooldownTimer.is_stopped() and not Input.is_action_pressed("sprint"):
 		print("attack")
 		var b = Bullet.instance()
 		owner.add_child(b)
