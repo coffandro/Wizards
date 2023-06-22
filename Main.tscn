@@ -44,7 +44,7 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, -0.846918, 0.531724, 0, -0.531724, -0.846918, 0, 17.6212, -38.2901 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.819152, 0.573577, 0, -0.573577, 0.819152, 0, 8, 11 )

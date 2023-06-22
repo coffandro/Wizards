@@ -6,6 +6,8 @@ export var SpeedBoost = 1
 export var fall_acceleration = 75
 export var jump_impulse = 20
 
+export (PackedScene) var Bullet
+
 var velocity = Vector3.ZERO
 
 func _physics_process(delta):
@@ -20,16 +22,18 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_forward"):
 		direction.z -= 1
 	
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
-		velocity.y += jump_impulse
-	
 	if Input.is_action_pressed("sprint"):
-		SpeedBoost = 2
+		SpeedBoost = 1.5
 	else:
 		SpeedBoost = 1
 	
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and $CooldownTimer.is_stopped():
 		print("attack")
+		var b = Bullet.instance()
+		owner.add_child(b)
+		b.transform = $Pivot/Shoot.global_transform
+		b.velocity = -b.transform.basis.z * b.muzzle_velocity
+		$CooldownTimer.start()
 	
 	if direction != Vector3.ZERO:
 		direction = direction.normalized()

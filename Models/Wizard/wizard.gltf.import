@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/wizard.gltf-a586c63f0b2e79b227871b765d9d44bf.scn"
+path="res://.import/wizard.gltf-3d433b19e5d3da88cdd5e6a06ef44c70.scn"
 
 [deps]
 
-source_file="res://Models/wizard.gltf"
-dest_files=[ "res://.import/wizard.gltf-a586c63f0b2e79b227871b765d9d44bf.scn" ]
+source_file="res://Models/Wizard/wizard.gltf"
+dest_files=[ "res://.import/wizard.gltf-3d433b19e5d3da88cdd5e6a06ef44c70.scn" ]
 
 [params]
 
