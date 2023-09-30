@@ -15,7 +15,7 @@ const DDR : = 0x80
 var meshes: Dictionary
 var sub_gridmap : GridMap
 
-func set_refresh( value ):
+func set_refresh( _value ):
 	print( "Refreshed !" )
 	_setup()
 
@@ -265,7 +265,7 @@ func get_main_cell_item( x, y, z ) -> int:
 	return get_cell_item( new_x, new_y, new_z )
 
 
-func set_cell_item( x: int, y: int, z: int, item: int, orientation: int = 0 ):
+func set_cell_item( x: int, y: int, z: int, item: int, _orientation: int = 0 ):
 	.set_cell_item( x, y, z, item )
 	
 	if Engine.editor_hint:

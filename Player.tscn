@@ -1,45 +1,87 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=17 format=2]
 
-[ext_resource path="res://Player.gd" type="Script" id=2]
-[ext_resource path="res://Weapons/Bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://Weapons/Bullet.tscn" type="PackedScene" id=2]
+
+[sub_resource type="SpatialMaterial" id=17]
+flags_transparent = true
+
+[sub_resource type="SpatialMaterial" id=12]
+render_priority = -1
+next_pass = SubResource( 17 )
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+
+[sub_resource type="CubeMesh" id=6]
+material = SubResource( 12 )
+size = Vector3( 0.1, 0.1, 0.5 )
 
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 0.5, 1, 0.5 )
 
-[sub_resource type="SpatialMaterial" id=5]
-albedo_color = Color( 0.384314, 0.117647, 0.117647, 1 )
+[sub_resource type="SpatialMaterial" id=15]
+flags_transparent = true
+albedo_color = Color( 0, 1, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=7]
+render_priority = -1
+next_pass = SubResource( 15 )
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 0, 0, 1, 1 )
 
 [sub_resource type="CubeMesh" id=3]
 size = Vector3( 0.5, 0.25, 0.1 )
 
-[sub_resource type="SpatialMaterial" id=4]
+[sub_resource type="SpatialMaterial" id=16]
+flags_transparent = true
 albedo_color = Color( 0, 0, 0, 1 )
 
-[sub_resource type="CubeMesh" id=6]
-size = Vector3( 0.1, 0.1, 0.5 )
+[sub_resource type="SpatialMaterial" id=9]
+render_priority = -1
+next_pass = SubResource( 16 )
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 0, 0, 1, 1 )
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.25, 0.45, 0.25 )
 
-[node name="Player" type="KinematicBody"]
-collision_mask = 6
-script = ExtResource( 2 )
-Bullet = ExtResource( 3 )
+[sub_resource type="PlaneMesh" id=13]
+
+[sub_resource type="Shader" id=4]
+code = "shader_type spatial;
+render_mode unshaded;
+
+const int pixel_size = 4; //resolution must be divisible by pixel_size
+
+void fragment() {
+	float x = float(int(FRAGCOORD.x) % pixel_size);
+	float y = float(int(FRAGCOORD.y) % pixel_size);
+
+	x = FRAGCOORD.x + floor(float(pixel_size) / 2.0) - x;
+	y = FRAGCOORD.y + floor(float(pixel_size) / 2.0) - y;
+
+	ALBEDO = texture(SCREEN_TEXTURE, vec2(x, y) / VIEWPORT_SIZE).xyz;
+}"
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = SubResource( 4 )
+
+[sub_resource type="BoxShape" id=18]
+extents = Vector3( 15, 1, 15 )
+
+[node name="Player" type="KinematicBody" groups=["Player"]]
+process_priority = 1
+collision_layer = 2
+collision_mask = 21
+script = ExtResource( 1 )
+Bullet = ExtResource( 2 )
 
 [node name="Pivot" type="Spatial" parent="."]
-
-[node name="MeshInstance" type="MeshInstance" parent="Pivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.025 )
-mesh = SubResource( 2 )
-material/0 = SubResource( 5 )
-
-[node name="Eyes" type="MeshInstance" parent="Pivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.275 )
-mesh = SubResource( 3 )
-material/0 = SubResource( 4 )
-
-[node name="Shoot" type="Position3D" parent="Pivot"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.85 )
 
 [node name="RunningParticles" type="CPUParticles" parent="Pivot"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.85 )
@@ -51,6 +93,23 @@ emission_shape = 2
 emission_box_extents = Vector3( 0.1, 0.5, 0.5 )
 gravity = Vector3( 0, 0, 50 )
 
+[node name="ShootPivot" type="Spatial" parent="."]
+
+[node name="Shoot" type="Position3D" parent="ShootPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.85 )
+
+[node name="MeshInstance" type="MeshInstance" parent="ShootPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.025 )
+mesh = SubResource( 2 )
+skeleton = NodePath("../../Pivot")
+material/0 = SubResource( 7 )
+
+[node name="Eyes" type="MeshInstance" parent="ShootPivot"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, -0.275 )
+mesh = SubResource( 3 )
+skeleton = NodePath("../../Pivot")
+material/0 = SubResource( 9 )
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0.025 )
 shape = SubResource( 1 )
@@ -58,3 +117,23 @@ shape = SubResource( 1 )
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 0.2
 one_shot = true
+
+[node name="CameraPath" type="Spatial" parent="."]
+
+[node name="Camera" type="Camera" parent="CameraPath"]
+transform = Transform( 1, 0, 0, 0, 0.5, 0.866026, 0, -0.866026, 0.5, 0, 7.5, 4 )
+
+[node name="MeshInstance" type="MeshInstance" parent="CameraPath/Camera"]
+transform = Transform( 1.7, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -1.4 )
+visible = false
+mesh = SubResource( 13 )
+material/0 = SubResource( 14 )
+
+[node name="RayCast" type="RayCast" parent="."]
+
+[node name="EnemyTrigger" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="EnemyTrigger"]
+shape = SubResource( 18 )
+
+[connection signal="body_entered" from="EnemyTrigger" to="." method="_on_EnemyTrigger_body_entered"]
