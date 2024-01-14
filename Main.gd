@@ -2,7 +2,7 @@ extends Node
 
 export (PackedScene) var enemy_scene
 
-var EnemyNumber = 3
+var EnemyNumber = 100
 
 func _ready():
 	for i in EnemyNumber:

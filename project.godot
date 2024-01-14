@@ -19,6 +19,11 @@ config/icon="res://icon.png"
 window/size/fullscreen=true
 window/dpi/allow_hidpi=true
 
+[editor]
+
+version_control_autoload_on_startup=true
+version_control_plugin_name="GitAPI"
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

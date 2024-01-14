@@ -4,7 +4,7 @@ var run_speed = 2.5
 var velocity = Vector3.ZERO
 var player = null
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	velocity = Vector3.ZERO
 	if player:
 		velocity = transform.origin.direction_to(player.transform.origin) * run_speed
