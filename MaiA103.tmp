@@ -25,14 +25,14 @@ cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 default_font = SubResource("7")
 Label/fonts/font = ExtResource("2")
 
-[sub_resource type="Resource" id="Resource_hglwl"]
+[sub_resource type="Resource" id="Resource_icsvb"]
 script = ExtResource("7_yvlo3")
 selected = false
 active = false
 collsion = true
 physics_layer = 0
 physics_mask = 0
-vertex_points = PackedVector3Array(0, 1, 0, 0, 1, 32, 0, 0, 32, 0, 0, 0, 32, 1, 0, 32, 1, 32, 32, 0, 32, 32, 0, 0)
+vertex_points = PackedVector3Array(0, 1, 0, 0, 1, 16, 0, 0, 16, 0, 0, 0, 16, 1, 0, 16, 1, 16, 16, 0, 16, 16, 0, 0)
 vertex_selected = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0)
 active_vertex = -1
 edge_vertex_indices = PackedInt32Array(0, 1, 1, 2, 2, 3, 3, 0, 7, 6, 6, 5, 5, 4, 4, 7, 0, 4, 5, 1, 6, 2, 7, 3)
@@ -82,6 +82,6 @@ transform = Transform3D(0.856042, -0.217571, 0.468888, 2.85621e-08, 0.907103, 0.
 script = ExtResource("5_t6nbm")
 
 [node name="Block_0" type="Node3D" parent="CyclopsBlocks"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -16)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, -8)
 script = ExtResource("6_78jkk")
-block_data = SubResource("Resource_hglwl")
+block_data = SubResource("Resource_icsvb")

@@ -2,11 +2,13 @@ extends Node
 
 @export var enemyScene: PackedScene
 
-var EnemyNumber = 200
+@export var EnemyNumber = 10
+@export var EnemySpawnRange1 = 10
+@export var EnemySpawnRange2 = -10
 
-#func _ready():
-	#for i in EnemyNumber:
-		#randomize()
-		#var enemy = enemyScene.instantiate()
-		#enemy.transform.origin = Vector3(randf_range(-7, 7), 1, randf_range(-7, 7))
-		#add_child(enemy)
+func _ready():
+	for i in EnemyNumber:
+		randomize()
+		var enemy = enemyScene.instantiate()
+		enemy.transform.origin = Vector3(randf_range(EnemySpawnRange2, EnemySpawnRange1), 1, randf_range(EnemySpawnRange2, EnemySpawnRange1))
+		add_child(enemy)
